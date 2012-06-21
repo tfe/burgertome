@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
 
+gem 'taskrabbit', '~> 0.0.1'
+
 group :development do
   gem 'debugger'
 end
