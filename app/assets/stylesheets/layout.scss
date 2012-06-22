@@ -1,5 +1,4 @@
 @import "utility";
-@import "compass";
 
 $red: #ed3e34;
 $darkred: #880706;
@@ -61,7 +60,7 @@ body > header {
 }
 
 body > section {
-  width: 768px;
+  width: 700px;
   margin: 36px auto;
   text-align: center;
 }

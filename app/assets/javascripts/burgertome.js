@@ -25,7 +25,7 @@ BurgerToMe = {
     var center = new google.maps.LatLng(37.77493, -122.419416);
     var radius = 20;
     var zoom   = 12;
-    var size   = "718x200";
+    var size   = "700x200";
   
     var map_image_base_url = "//maps.googleapis.com/maps/api/staticmap?size="+size+"&maptype=roadmap&sensor=false&key="+this.GMAPS_STATIC_API_KEY;
 
@@ -95,12 +95,13 @@ BurgerToMe = {
   
   OrderList: {
     initialize: function (el) {
+      var that = this;
       this.el = el;
       var list = el.val();
       if(list.length > 0){
         list = list.split("\n");
         $(list).each(function(n, v){
-          this.newLineItem(v);
+          that.newLineItem(v);
         });
         this.newLineItem();
       }else{
@@ -136,7 +137,7 @@ BurgerToMe = {
       if(last[0]){var prev = last.find('input').val();}
       if(num == 1 || prev && prev.replace(/ /g,'').length > 0){
         if(value == undefined){value =""};
-        newItem = $('<li class="listItem" id="orderItem'+num+'"><label class="itemLabel">'+num+'</label><input type="text" class="itemInput" name="input'+num+'" value="'+value+'" placeholder="'+randomItem+'" onkeyup="BurgerToMe.OrderList.saveLineItem(this)" /><div class="kill"></div></li>');
+        newItem = $('<li class="listItem" id="orderItem'+num+'"><label class="itemLabel">'+num+'</label><input type="text" class="itemInput" name="input'+num+'" value="'+value+'" placeholder="'+randomItem+'" autocomplete="off" onkeyup="BurgerToMe.OrderList.saveLineItem(this)" /><div class="kill"></div></li>');
         this.el.append(newItem);
       }
       
@@ -161,7 +162,7 @@ BurgerToMe = {
           $(this).hide();
         })
         $(kill).click(function(){
-          this.deleteLineItem(parent);
+          that.deleteLineItem(parent);
         })
       });
       input.mouseout(function(){
