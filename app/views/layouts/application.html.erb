@@ -6,13 +6,15 @@
   <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Norican" %>
   <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:900" %>
   <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" %>
-  <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js" %>
-  <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.9&libraries=places&sensor=false" %>
+  <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.9&libraries=places,geometry&sensor=false" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_tag do %>
+    BurgerToMe.GMAPS_STATIC_API_KEY = <%= raw ENV['GMAPS_STATIC_API_KEY'].to_json %>;
+  <% end %>
   <%= csrf_meta_tags %>
 </head>
 
-<body>
+<body class="<%= params[:controller] %> <%= params[:action] %>">
 
   <header>
     <h1 class="logo"><span class="name">In-N-Out</span> Delivery</h1>

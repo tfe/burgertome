@@ -1,0 +1,27 @@
+<form action="<%= orders_path %>" method="post" accept-charset="utf-8" class="new order">
+
+  <h2>What do you want?</h2>
+  <p>Need to see <a href="http://www.in-n-out.com/menu.aspx" target="_new">the menu</a> first?</p>
+  <section class="what">
+    <div class="list-container">
+      <ul class="order list"></ul>
+    </div>
+    <textarea class="hidden order" name="order"></textarea>
+  </section>
+
+  <h2>Where do you want it?</h2>
+  <section class="where">
+    <input type="text" name="address" value="" id="address" />
+    <input type="hidden" name="address_full" value="" id="address_full">
+    <input type="hidden" name="address_address" value="" id="address_address">
+    <input type="hidden" name="address_city" value="" id="address_city">
+    <input type="hidden" name="address_state" value="" id="address_state">
+    <input type="hidden" name="address_zip" value="" id="address_zip">
+    <input type="hidden" name="address_lat" value="" id="address_lat">
+    <input type="hidden" name="address_lng" value="" id="address_lng">
+  </section>
+  
+  <section>
+    <input id="submit" class="btn btn-large" type="submit" value="Place Order &rarr;">
+  </section>
+</form>
