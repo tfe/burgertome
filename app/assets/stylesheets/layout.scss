@@ -1,0 +1,101 @@
+@import "utility";
+
+$red: #ed3e34;
+$darkred: #880706;
+$yellow: #FFF200;
+
+
+html {
+  background: url("/assets/furley_bg.png"); // http://subtlepatterns.com/?p=1121
+}
+
+body {
+  font-family: 'PT Sans', 'Helvetica Neue', helvetica, sans-serif;
+  color: #333;
+  margin: 0;
+}
+
+body > header {
+  height: 80px;
+  padding: 10px 20px;
+  color: whitesmoke;
+  border-bottom: 1px solid black;
+  text-shadow: 0 1px 1px $darkred;
+  @include gradient($red, $darkred);
+  position: relative;
+
+  .logo, .slogan {
+    font-family: 'Norican';
+    font-weight: normal;
+    text-shadow: 0 2px 2px $darkred;
+    margin: 0;
+  }
+  
+  .logo {
+    font-size: 64px;
+    position: absolute;
+    top: 8px;
+    .name {
+      font-family: 'Lato';
+      color: $yellow;
+      text-transform: uppercase;
+    }
+  }
+  
+  .slogan {
+    font-size: 36px;
+    position: absolute;
+    right: 20px;
+    top: 36px;
+  }
+
+  #account-links {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    
+    a, a:link, a:visited, a:active {
+      color: whitesmoke;
+      text-decoration: underline;
+    }
+  }
+}
+
+body > section {
+  clear: both;
+  width: 768px;
+  margin: 20px;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px solid white;
+}
+
+
+body > footer {
+  position: relative;
+  min-height: 8em;
+  #powered-by {
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    color: #555;
+    font-family: 'Norican';
+    font-size: 17px;
+    span {
+      display: inline-block;
+      position: absolute;
+      bottom: 40px;
+      left: 39px;
+    }
+  }
+}
+
+
+.flash {
+  padding: 10px;
+  .alert {
+    border: solid red 2px;
+    color: #FF4040;
+  }
+}
+

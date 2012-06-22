@@ -1,0 +1,26 @@
+.clearfix {
+  zoom:1;
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.hidden { display: none; }
+
+h1, h2, h3, h4, h5 { font-weight: bold; margin: 10px 0; }
+h1 { font-size: 400%; }
+h2 { font-size: 300%; }
+h3 { font-size: 150%; }
+
+@mixin gradient($first, $second) {
+  background: $second;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$first', endColorstr='$second');
+  background: -webkit-gradient(linear, left top, left bottom, from($first), to($second));
+  background: -moz-linear-gradient(top,  $first,  $second);
+}

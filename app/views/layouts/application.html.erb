@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BurgerToMe</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <title>On-Demand In-N-Out Delivery - $10 to anywhere in SF!</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Norican" %>
+  <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:900" %>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" %>
+  <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js" %>
+  <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?v=3.9&libraries=places&sensor=false" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -10,9 +15,12 @@
 <body>
 
   <header>
-    <div class="account_links">
+    <h1 class="logo"><span class="name">In-N-Out</span> Delivery</h1>
+    <h2 class="slogan">$10 to anywhere in SF!</h2>
+
+    <div id="account-links">
       <% if current_user %>
-        <p class="logged_in">
+        <p class="logged-in">
           Logged in as <%= current_user.display_name %>&nbsp;&nbsp;&nbsp;
           <%= link_to "Log out", logout_path %>
         </p>
@@ -22,9 +30,17 @@
     </div>
   </header>
 
-  <%= render 'layouts/flash_messages' %>
+  <section id="main">
+    <%= render 'layouts/flash_messages' %>
+    <%= yield %>
+  </section>
 
-  <%= yield %>
+  <footer>
+    <div id="powered-by">
+      <span>Powered By:</span>
+      <%= image_tag 'tr_logo.png', :alt => 'TaskRabbit', :title => 'TaskRabbit' %>
+    </div>
+  </footer>
 
 </body>
 </html>
