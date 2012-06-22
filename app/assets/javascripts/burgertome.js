@@ -3,7 +3,8 @@ BurgerToMe = {
   EARTH_RADIUS: 3963.19059,
 
   initialize: function () {
-    // initialize address autocomplete
+    // initialize item list and address autocomplete
+    BurgerToMe.OrderList.initialize($("ul.order.list"));
     this.initializeAddress($(".where"));
 
     // watch all text inputs for the return key and disable it
@@ -19,7 +20,7 @@ BurgerToMe = {
       }
     });
   },
-  
+
   initializeAddress: function (el) {
     var center = new google.maps.LatLng(37.77493, -122.419416);
     var radius = 20;
@@ -89,6 +90,131 @@ BurgerToMe = {
       el.find('#address_lng').val(lng);
       el.find('#address_full').val(address)
     });
+  },
+  
+  
+  OrderList: {
+    initialize: function (el) {
+      this.el = el;
+      var list = el.val();
+      if(list.length > 0){
+        list = list.split("\n");
+        $(list).each(function(n, v){
+          this.newLineItem(v);
+        });
+        this.newLineItem();
+      }else{
+        this.newLineItem();
+      }
+    },
+    
+    newLineItem: function (value) {
+      var that = this;
+      var num = this.el.children().length+1;
+      var last = this.el.find('li:nth-child('+(num-1)+')');
+      var newItem = '';
+      var funkyMenuItems = [
+        'Double Double',
+        'Grilled Onions',
+        'Double Meat',
+        'Cut-In-Half',
+        'Animal Style',
+        'Flying Dutchman',
+        'Grilled Cheese',
+        'Protein Style',
+        'Veggie Burger',
+        'Animal Style Fries',
+        'Cheese Fries',
+        'Fries, Well-Done',
+        'Neapolitan Shake',
+        'Choco-Vanilla Swirl Shake',
+        'Root-Beer Float'
+      ];
+
+      var randomItem = _.shuffle(funkyMenuItems)[0];
+
+      if(last[0]){var prev = last.find('input').val();}
+      if(num == 1 || prev && prev.replace(/ /g,'').length > 0){
+        if(value == undefined){value =""};
+        newItem = $('<li class="listItem" id="orderItem'+num+'"><label class="itemLabel">'+num+'</label><input type="text" class="itemInput" name="input'+num+'" value="'+value+'" placeholder="'+randomItem+'" onkeyup="BurgerToMe.OrderList.saveLineItem(this)" /><div class="kill"></div></li>');
+        this.el.append(newItem);
+      }
+      
+      var input = newItem.find(".itemInput")
+      input.focusout(function(){
+        that.deleteOnFocusOut($(this).parent());
+      });
+
+      input.hover(function(){
+        $(this).css({"background-color":"#FBFCFD"});
+        var parent = $(this).parent();
+        var value = parent.find('input').val();
+        var kill  = parent.find('div:last');
+
+        if(value.length >0){
+          kill.show();
+        }
+        $(kill).hover(function(){
+          $(this).show();
+        })
+        $(kill).mouseout(function(){
+          $(this).hide();
+        })
+        $(kill).click(function(){
+          this.deleteLineItem(parent);
+        })
+      });
+      input.mouseout(function(){
+        $(this).css({"background-color":"#FFFFFF"});
+        $(this).parent().find('div:last').hide();
+      });
+
+     //setPlaceholders(newItem);
+    },
+
+    deleteLineItem: function (obj) {
+      obj.remove();
+      this.combineOrderList();
+    },
+
+    deleteOnFocusOut: function (obj) {
+      var obj = $(obj),
+          val = obj.find('input').val()
+      if(obj.is('li:first-child') && !obj.is('li:last-child') && val.replace(/ /g,'').length == 0){
+        obj.remove();
+      }else if(!obj.is('li:first-child') && !obj.is('li:last-child') && val.replace(/ /g,'').length == 0){
+        obj.remove();
+      }
+      this.combineOrderList();
+    },
+
+    saveLineItem: function (obj) {
+      if($(obj).parent().is('li:last-child') && $(obj).val().replace(/ /g,'').length > 0){
+        var num = $(obj).parent().parent().index()+1;
+        // orderList[num] = $(obj).val();
+        this.newLineItem();
+      // }else if(!$(obj).parent().is('li:last-child') && $(obj).val().replace(/ /g,'').length == 0){
+      //   deleteLineItem($(obj).parent())
+      }
+      this.combineOrderList();
+    },
+
+    combineOrderList: function () {
+      var list = [];
+      this.el.find('li').each(function(n,v){
+        var label = $(v).find('label');
+        var input = $(v).find('input');
+        var value = input.val();
+        // Renumber Line Items
+        $(v).attr('id', 'orderItem'+(n+1));
+        label.text(n+1);
+        // Push no value to array
+        if (value.length > 0){
+          list.push(value);
+        }
+      });
+      this.el.val(list.join("\n"));
+    }
   }
 };
 
