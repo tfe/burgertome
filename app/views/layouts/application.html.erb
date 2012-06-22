@@ -11,7 +11,14 @@
 
   <header>
     <div class="account_links">
-      <%= link_to("Log in with TaskRabbit", "#{Taskrabbit.base_uri}api/authorize?client_id=#{ENV['TR_API_KEY']}") %>
+      <% if current_user %>
+        <p class="logged_in">
+          Logged in as <%= current_user.display_name %>&nbsp;&nbsp;&nbsp;
+          <%= link_to "Log out", logout_path %>
+        </p>
+      <% else %>
+        <%= link_to "Log in with TaskRabbit", "#{Taskrabbit.base_uri}api/authorize?client_id=#{ENV['TR_API_KEY']}" %>
+      <% end %>
     </div>
   </header>
 

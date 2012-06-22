@@ -2,8 +2,8 @@ BurgerToMe::Application.routes.draw do
 
   root :to => 'users#test'
 
-  # callback from Taskrabbit OAuth
-  match 'callback' => 'users#login'
+  match 'callback' => 'users#login' # callback from Taskrabbit OAuth
+  match 'logout'   => 'users#logout'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
