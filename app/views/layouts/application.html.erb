@@ -6,9 +6,18 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
-<%= yield %>
+  <header>
+    <div class="account_links">
+      <%= link_to("Log in with TaskRabbit", "#{Taskrabbit.base_uri}api/authorize?client_id=#{ENV['TR_API_KEY']}") %>
+    </div>
+  </header>
+
+  <%= render 'layouts/flash_messages' %>
+
+  <%= yield %>
 
 </body>
 </html>
