@@ -52,6 +52,10 @@ body > header {
   #account-links {
     float: right;
     
+    .button {
+      margin-left: 10px;
+    }
+    
     a, a:link, a:visited, a:active {
       text-decoration: underline;
     }

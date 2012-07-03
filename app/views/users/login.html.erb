@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>On-Demand In-N-Out Delivery - $10 to anywhere in SF!</title>
+  <script type="text/javascript" charset="utf-8">
+    window.opener.BurgerToMe.currentUser = <%= raw @user_name.to_json %>;
+    window.opener.BurgerToMe.markLoggedIn();
+    window.close();
+  </script>
+</head>
+<body></body>
+</html>

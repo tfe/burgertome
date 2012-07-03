@@ -1,10 +1,39 @@
 BurgerToMe = {
 
   EARTH_RADIUS: 3963.19059,
+  currentUser: null,
+
 
   initialize: function () {
+    // init login state
+    if (this.currentUser) {
+      this.markLoggedIn();
+    } else {
+      this.markLoggedOut();
+    }
+
+    $('.login.button').click(function (e) {
+      e.preventDefault();
+      window.open($(this).attr('href'), 'TaskRabbitLogin', 'height=700,width=670')
+    });
+
+
+    // initialize page-specific stuff
+    var body = $('body');
+    if (body.hasClass('orders')) {
+      if (body.hasClass('new')) {
+        BurgerToMe.initializeNewOrder();
+      }
+      if (body.hasClass('show')) {
+        BurgerToMe.refreshTask();
+      }
+    } 
+  },
+
+
+  initializeNewOrder: function () {
     // initialize item list and address autocomplete
-    BurgerToMe.OrderList.initialize($("ul.order.list"));
+    this.OrderList.initialize($("ul.order.list"));
     this.initializeAddress($(".where"));
 
     // watch all text inputs for the return key and disable it
@@ -123,6 +152,18 @@ BurgerToMe = {
       },
       error: function (xhr, status, error) { console.log(xhr); console.log(status); console.log(error); }
     });
+  },
+  
+  
+  markLoggedIn: function () {
+    $('.logged-in .user-name').text(this.currentUser);
+    $('.logged-in').show();
+    $('.logged-out').hide();
+  },
+  
+  markLoggedOut: function (userName) {
+    $('.logged-in').hide();
+    $('.logged-out').show();
   },
   
   
@@ -253,12 +294,5 @@ BurgerToMe = {
 };
 
 $(document).ready(function() {
-  var body = $('body');
-  if (body.hasClass('orders') && body.hasClass('new')) {
-    BurgerToMe.initialize();
-  }
-  
-  if (body.hasClass('show')) {
-    BurgerToMe.refreshTask();
-  }
+  BurgerToMe.initialize();
 });

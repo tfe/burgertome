@@ -17,11 +17,11 @@ class UsersController < ApplicationController
     user.display_name = remote_info['display_name']
     user.save!
 
-    # set a flash message and lay down their cookie
-    flash.notice = "Logged in as #{user.display_name}"
+    # lay down their cookie and save their username for the view
     cookies[:user_id] = user.id
-
-    redirect_to :root
+    @user_name = user.display_name
+    
+    render :login, :layout => false
   end
 
   def logout

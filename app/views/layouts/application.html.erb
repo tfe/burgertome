@@ -10,6 +10,7 @@
   <%= javascript_include_tag "application" %>
   <%= javascript_tag do %>
     BurgerToMe.GMAPS_STATIC_API_KEY = <%= raw ENV['GMAPS_STATIC_API_KEY'].to_json %>;
+    BurgerToMe.currentUser = <%= raw current_user.try(:display_name).to_json %>;
   <% end %>
   <%= csrf_meta_tags %>
 </head>
@@ -23,14 +24,13 @@
     <h2 class="slogan">$10 to anywhere in SF!</h2>
 
     <div id="account-links">
-      <% if current_user %>
-        <p class="logged-in">
-          Logged in as <%= current_user.display_name %>&nbsp;&nbsp;&nbsp;
-          <%= link_to "Log out", logout_path %>
-        </p>
-      <% else %>
-        <%= link_to "Log in with TaskRabbit", "#{Taskrabbit.base_uri}/api/authorize?client_id=#{Taskrabbit.api_key}" %>
-      <% end %>
+      <p class="logged-in" style="display: none;">
+        Logged in as <span class="user-name"></span>
+        <%= link_to "Log out", logout_path, :class => 'logout button' %>
+      </p>
+      <p class="logged-out" style="display: none;">
+        <%= link_to "Log in with TaskRabbit", "#{Taskrabbit.base_uri}/api/authorize?client_id=#{Taskrabbit.api_key}", :class => 'login button' %>
+      </p>
     </div>
   </header>
 
