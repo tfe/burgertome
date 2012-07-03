@@ -48,6 +48,17 @@ BurgerToMe = {
         }
       }
     });
+
+    // order validation
+    $('form.new.order').submit(this.validateOrder);
+  },
+
+  validateOrder: function (e) {
+    // check login
+    if (!BurgerToMe.currentUser) {
+      e.preventDefault();
+      alert('Oops! Please log in to your TaskRabbit account first using the link in the upper left.');
+    }
   },
 
   initializeAddress: function (el) {
