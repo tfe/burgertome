@@ -1,0 +1,87 @@
+@import "utility";
+
+// New Order Page
+///////////////////////////////////////////////////////////////////////////////
+
+section.what {
+  margin: 20px 0 40px;
+}
+
+
+section.where {
+  #address {
+    width: 658px;
+    height: 30px;
+    margin: 15px 0 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: 1px solid #e5e5e5;
+    @include doubleborder(bottom, #e5e5e5, #e5e5e5);
+  }
+}
+
+section.submit {
+  margin: 40px 0;
+
+  input {
+    font-size: 36px;
+    padding: 15px 40px;
+  
+    background-color: hsl(0, 100%, 27%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0505", endColorstr="#890000");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#ff0505), to(#890000));
+    background-image: -moz-linear-gradient(top, #ff0505, #890000);
+    background-image: -ms-linear-gradient(top, #ff0505, #890000);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff0505), color-stop(100%, #890000));
+    background-image: -webkit-linear-gradient(top, #ff0505, #890000);
+    background-image: -o-linear-gradient(top, #ff0505, #890000);
+    background-image: linear-gradient(#ff0505, #890000);
+    border-color: #890000 #890000 hsl(0, 100%, 21%);
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.39);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+
+
+// Order Show Page
+///////////////////////////////////////////////////////////////////////////////
+
+section.opened {
+  p { text-align: left; }
+}
+
+section.assigned {
+  #assigned-info {
+    .avatar {
+      margin-bottom: -3px;
+      display: inline-block;
+    }
+    .rabbit-info {
+      display: inline-block;
+      vertical-align: top;
+      margin: 10px 15px;
+      p { margin: 8px 0; }
+    }
+    text-align: left;
+  }
+}
+
+section.location {
+  header .address {
+    padding-left: 10px;
+    font-size: 20px;
+  }
+  
+  img.location_map {
+    margin-bottom: -3px;
+  }
+}
+
+body.orders.show #main section {
+  margin: 20px 0 40px;
+}
+
+

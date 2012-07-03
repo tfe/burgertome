@@ -1,0 +1,53 @@
+<script type="text/javascript" charset="utf-8">
+  BurgerToMe.taskUrl = <%= raw @order.remote_url.to_json %>;
+  BurgerToMe.token   = <%= raw @order.user.token.to_json %>;
+</script>
+
+<div id="details">
+  <div id="order-summary">
+    <section class="opened">
+      <h2>Finding someone&hellip;</h2>
+      <p>Your order is getting assigned to one of our expert burgermeisters. Once assigned, they
+      will call you to coordinate or confirm any additional details about your order. So sit back
+      and let us handle the rest!</p>
+    </section>
+
+    <section class="assigned" style="display:none;">
+      <h2>Your order is getting picked up!</h2>
+      <section id="assigned-info" class="boxed" style="display: block;">
+        <header>
+          <span id="rabbit"><span class="name"></span> is picking up your In-N-Out order!</span>
+        </header>
+        <article>
+          <img id="avatar" class="avatar" src=''>
+          <div class="rabbit-info">
+            <p id="mobile_phone">Contact <span class="name"></span>: <span class="number"></span></p>
+            <p id="support_phone">Contact Support: <span class="number">888-661-8105</span></p>
+            <p>For more details, <a id="task_link" href="">view your task on TaskRabbit</a>.
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <section class="items boxed">
+      <header>Your Order:</header>
+      <article>
+        <ul class="order list">
+          <% @order.description.to_s.split("\n").each_with_index do |line, num| %>
+            <li class="listItem" id="orderItem<%= num+1 %>">
+              <label class="itemLabel"><%= num+1 %></label>
+              <input type="text" class="itemInput" name="input<%= num %>" value="<%= line %>" readonly="readonly" />
+            </li>
+          <% end %>
+        </ul>
+      </article>
+    </section>
+
+    <section class="location boxed">
+      <header>Deliver To: <span class="address"><%= @order.location %></span></header>
+      <article>
+        <img class="location_map" src="//maps.googleapis.com/maps/api/staticmap?size=700x200&center=<%= @order.lat_lng_for_url %>&markers=size:large%7Ccolor:red%7C<%= @order.lat_lng_for_url %>&zoom=15&maptype=roadmap&sensor=false&key=<%= ENV['GMAPS_STATIC_API_KEY'] %>">
+      </article>
+    </section>
+  </div>
+</div>

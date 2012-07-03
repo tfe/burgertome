@@ -2,6 +2,7 @@ require 'open-uri'
 require 'json'
 
 class User < ActiveRecord::Base
+  has_many :orders
 
   def self.fetch_user_details(access_token)
     url = [

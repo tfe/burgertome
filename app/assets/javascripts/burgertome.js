@@ -93,6 +93,36 @@ BurgerToMe = {
   },
   
   
+  refreshTask: function () {
+    $.ajax({
+      url: BurgerToMe.taskUrl,
+      data: {'access_token': BurgerToMe.token},
+      dataType: 'jsonp',
+      success: function (data, status) {
+
+        if (data.state == 'assigned') {
+
+          var production_avatar = data.runner.links.avatar_url.replace("http://s3.amazonaws.com/assets-staging.taskrabbit.com", "http://uploads.taskrabbit.com")
+
+          $('#avatar').attr('src', production_avatar);
+          $('#rabbit .name').html(data.runner.display_name);
+          $('#mobile_phone .name').html(data.runner.short_name);
+          $('#mobile_phone .number').html(data.runner.mobile_phone);
+          $('#task_link').attr('href', data.links.authenticated);
+
+          $('.opened').hide();
+          $('.assigned').show();
+
+        } else {
+          setTimeout(BurgerToMe.refreshTask, 5000);
+        }
+      
+      },
+      error: function (xhr, status, error) { console.log(xhr); console.log(status); console.log(error); }
+    });
+  },
+  
+  
   OrderList: {
     initialize: function (el) {
       var that = this;
@@ -214,7 +244,7 @@ BurgerToMe = {
           list.push(value);
         }
       });
-      this.el.val(list.join("\n"));
+      $('#order_description').val(list.join("\n"));
     }
   }
 };
@@ -223,5 +253,9 @@ $(document).ready(function() {
   var body = $('body');
   if (body.hasClass('orders') && body.hasClass('new')) {
     BurgerToMe.initialize();
+  }
+  
+  if (body.hasClass('show')) {
+    BurgerToMe.refreshTask();
   }
 });

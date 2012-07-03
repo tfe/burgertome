@@ -94,3 +94,20 @@ body > footer {
   }
 }
 
+.boxed {
+  border-radius: 18px;
+  padding-bottom: 20px;
+  background-color: #B60202;
+
+  > header {
+    padding: 10px 15px;
+    color: whitesmoke;
+    text-align: left;
+    font-size: 24px;
+  }
+  > article {
+    background-color: white;
+    &.without-header { margin: 20px 0; }
+  }
+}
+
