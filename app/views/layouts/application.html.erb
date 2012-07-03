@@ -27,7 +27,7 @@
           <%= link_to "Log out", logout_path %>
         </p>
       <% else %>
-        <%= link_to "Log in with TaskRabbit", "#{Taskrabbit.base_uri}api/authorize?client_id=#{Taskrabbit.api_key}" %>
+        <%= link_to "Log in with TaskRabbit", "#{Taskrabbit.base_uri}/api/authorize?client_id=#{Taskrabbit.api_key}" %>
       <% end %>
     </div>
   </header>

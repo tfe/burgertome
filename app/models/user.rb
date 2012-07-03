@@ -7,9 +7,8 @@ class User < ActiveRecord::Base
     url = [
       Taskrabbit.base_uri,
       Taskrabbit.endpoint,
-      "/account?access_token=",
-      access_token
-    ].join
+      "account?access_token=#{access_token}"
+    ].join('/')
 
     JSON.parse(open(url).read)
   end
