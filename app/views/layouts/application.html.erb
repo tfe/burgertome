@@ -17,7 +17,9 @@
 <body class="<%= params[:controller] %> <%= params[:action] %>">
 
   <header>
-    <h1 class="logo"><span class="name">In-N-Out</span> Delivery</h1>
+    <%= link_to root_path do %>
+      <h1 class="logo"><span class="name">In-N-Out</span> Delivery</h1>
+    <% end %>
     <h2 class="slogan">$10 to anywhere in SF!</h2>
 
     <div id="account-links">
