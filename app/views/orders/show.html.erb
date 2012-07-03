@@ -46,7 +46,7 @@
     <section class="location boxed">
       <header>Deliver To: <span class="address"><%= @order.location %></span></header>
       <article>
-        <img class="location_map" src="//maps.googleapis.com/maps/api/staticmap?size=700x200&center=<%= @order.lat_lng_for_url %>&markers=size:large%7Ccolor:red%7C<%= @order.lat_lng_for_url %>&zoom=15&maptype=roadmap&sensor=false&key=<%= ENV['GMAPS_STATIC_API_KEY'] %>">
+        <img class="location_map" src="//maps.googleapis.com/maps/api/staticmap?size=700x200&center=<%= @order.lat_lng_for_url %>&markers=size:large%7Ccolor:red%7C<%= @order.lat_lng_for_url %>&zoom=15&maptype=roadmap&sensor=false<%= "&key=#{ENV['GMAPS_STATIC_API_KEY']}" if ENV['GMAPS_STATIC_API_KEY'] %>">
       </article>
     </section>
   </div>

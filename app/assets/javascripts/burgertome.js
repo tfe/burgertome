@@ -27,7 +27,10 @@ BurgerToMe = {
     var zoom   = 12;
     var size   = "700x200";
   
-    var map_image_base_url = "//maps.googleapis.com/maps/api/staticmap?size="+size+"&maptype=roadmap&sensor=false&key="+this.GMAPS_STATIC_API_KEY;
+    var map_image_base_url = "//maps.googleapis.com/maps/api/staticmap?size="+size+"&maptype=roadmap&sensor=false";
+    if (this.GMAPS_STATIC_API_KEY) {
+      map_image_base_url += "&key="+this.GMAPS_STATIC_API_KEY
+    }
 
     var field_name_map = _({ // this object maps our form fields to google maps place object fields
       'address_address': ['street_number', 'route'],
