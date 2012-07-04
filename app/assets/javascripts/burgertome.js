@@ -58,6 +58,20 @@ BurgerToMe = {
     if (!BurgerToMe.currentUser) {
       e.preventDefault();
       alert('Oops! Please log in to your TaskRabbit account first using the link in the upper left.');
+      return false;
+    }
+
+    // check presence of location and order items
+    if ($('#order_description').val().length == 0) {
+      e.preventDefault();
+      alert('Oops! Please add some menu items to your order first.');
+      return false;
+    }
+
+    if ($('#address_full').val().length == 0) {
+      e.preventDefault();
+      alert('Oops! Please add your address to the order first.');
+      return false;
     }
   },
 
