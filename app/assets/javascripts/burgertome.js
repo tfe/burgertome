@@ -73,6 +73,15 @@ BurgerToMe = {
       alert('Oops! Please add your address to the order first.');
       return false;
     }
+
+    // validate that location is in SF (TR requirement for "Deliver Now" orders)
+    var state = $('#address_state').val(),
+        city  = $('#address_city').val();
+    if (!(state === 'CA' && (city === 'SF' || city === 'San Francisco'))) {
+      e.preventDefault();
+      alert("Oops! We're sorry, but deliveries are only available in the city of San Francisco right now.");
+      return false;
+    }
   },
 
   initializeAddress: function (el) {
