@@ -1,7 +1,16 @@
 BurgerToMe = {
 
-  EARTH_RADIUS: 3963.19059,
   currentUser: null,
+  EARTH_RADIUS: 3963.19059,
+  DELIVERY_HOURS: { // starting at sunday (0)
+    0: [],
+    1: ['9:00', '19:00'],
+    2: ['9:00', '19:00'],
+    3: ['9:00', '19:00'],
+    4: ['9:00', '19:00'],
+    5: ['9:00', '19:00'],
+    6: []
+  },
 
 
   initialize: function () {
@@ -82,7 +91,44 @@ BurgerToMe = {
       alert("Oops! We're sorry, but deliveries are only available in the city of San Francisco right now.");
       return false;
     }
+
+    // validate that the current time is within delivery hours (TR requirement for "Deliver Now" orders)
+    // currently 9am to 7pm monday through friday
+    if (!this.validateDeliveryHours()) {
+      e.preventDefault();
+      alert("Oops! We're sorry, but deliveries are only available Monday through Friday 9am-7pm right now.");
+      return false;
+    }
   },
+
+  // Checks whether the current time (or optionally, a custom time passed as an argument) is
+  // within TR's delivery hours.
+  // help from http://stackoverflow.com/questions/2151826/javascript-validate-time-in-range
+  validateDeliveryHours: function (now) {
+    var now  = now || new Date(),
+        day  = now.getDay(),
+        hour = now.getHours(),
+        min  = now.getMinutes();
+
+    var hoursToday = this.DELIVERY_HOURS[day];
+
+    // ensure we have hours today
+    if (hoursToday.length == 0) { return false; }
+
+    var openTime  = hoursToday[0].split(':'),
+        closeTime = hoursToday[1].split(':'),
+        openHour  = openTime[0],
+        openMin   = openTime[1],
+        closeHour = closeTime[0],
+        closeMin  = closeTime[1];
+    
+    return !(
+        hour < openHour || hour > closeHour ||  // hour is wrong
+       (hour == openHour  && min < openMin) ||  // hour is opening hour but minute is too soon
+       (hour == closeHour && min > closeMin)    // hour is closing hour and minute is too late
+    );
+  },
+
 
   initializeAddress: function (el) {
     var center = new google.maps.LatLng(37.77493, -122.419416);
