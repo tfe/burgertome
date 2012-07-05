@@ -12,3 +12,4 @@
 //
 //= require_tree .
 //= require underscore-min
+//= require jquery.cookie

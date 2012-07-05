@@ -14,7 +14,9 @@ BurgerToMe = {
 
 
   initialize: function () {
-    // init login state
+    var that = this;
+
+    // init login state and buttons
     if (this.currentUser) {
       this.markLoggedIn();
     } else {
@@ -26,15 +28,21 @@ BurgerToMe = {
       window.open($(this).attr('href'), 'TaskRabbitLogin', 'height=700,width=670')
     });
 
+    $('.logout.button').click(function (e) {
+      e.preventDefault();
+      $.cookie('user_id', null);
+      that.markLoggedOut();
+    });
+
 
     // initialize page-specific stuff
     var body = $('body');
     if (body.hasClass('orders')) {
       if (body.hasClass('new')) {
-        BurgerToMe.initializeNewOrder();
+        this.initializeNewOrder();
       }
       if (body.hasClass('show')) {
-        BurgerToMe.refreshTask();
+        this.refreshTask();
       }
     } 
   },
@@ -242,6 +250,7 @@ BurgerToMe = {
   },
   
   markLoggedOut: function (userName) {
+    $('.logged-in .user-name').text('');
     $('.logged-in').hide();
     $('.logged-out').show();
   },
