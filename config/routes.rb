@@ -1,5 +1,13 @@
 BurgerToMe::Application.routes.draw do
 
+  # redirect to www url
+  # http://railsdog.com/blog/2010/10/29/redirect-non-www-requests-the-rails3-way/
+  constraints(:host => "burgerto.me") do
+    root :to => redirect("http://www.burgerto.me")
+    match '/*path', :to => redirect {|params| "http://www.burgerto.me/#{params[:path]}"}
+  end
+
+
   root :to => 'orders#new'
 
   match 'callback' => 'users#login' # callback from Taskrabbit OAuth
