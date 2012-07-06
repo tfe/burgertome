@@ -30,7 +30,7 @@ BurgerToMe = {
 
     $('.logout.button').click(function (e) {
       e.preventDefault();
-      $.cookie('user_id', null);
+      $.cookie('_burgertome_session', null)
       that.markLoggedOut();
     });
 

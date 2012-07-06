@@ -18,14 +18,15 @@ class UsersController < ApplicationController
     user.save!
 
     # lay down their cookie and save their username for the view
-    cookies[:user_id] = user.id
+    session[:current_user_id] = user.id
     @user_name = user.display_name
     
     render :login, :layout => false
   end
 
   def logout
-    cookies.delete :user_id
+    @current_user = nil
+    session[:current_user_id] = nil
     redirect_to :root
   end
 
