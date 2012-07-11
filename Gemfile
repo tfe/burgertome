@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.6'
 
 gem 'taskrabbit', '~> 0.0.1'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'debugger'
