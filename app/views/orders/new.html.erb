@@ -1,4 +1,4 @@
-<form action="<%= orders_path %>" method="post" accept-charset="utf-8" class="new order">
+<%= form_for @order, :class => "new order" do |f| %>
 
   <h2>What do you want?</h2>
   <p>Need to see <a href="http://www.in-n-out.com/menu.aspx" target="_new">the menu</a> first?</p>
@@ -24,4 +24,4 @@
   <section class="submit">
     <input id="submit" class="btn btn-large" type="submit" value="Place Order &rarr;">
   </section>
-</form>
+<% end %>
