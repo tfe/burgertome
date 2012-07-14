@@ -9,18 +9,20 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if not current_user
-      flash[:error] = "Sorry, you must log in with TaskRabbit first before placing an order."
-      render :new and return
-    end
-
-    tr = Taskrabbit::Api.new(current_user.token)
-
-    @order = current_user.orders.new
+    @order = Order.new
     @order.description = params[:order_description]
     @order.location = params[:address_full]
     @order.lat = params[:address_lat]
     @order.lng = params[:address_lng]
+    
+    if current_user
+      @order.user = current_user
+    else
+      flash.alert = "Sorry, you must log in with TaskRabbit first before placing an order."
+      render :new and return
+    end
+
+    tr = Taskrabbit::Api.new(current_user.token)
 
     task = tr.tasks.create({
       :task_type => "Deliver Now",
