@@ -73,20 +73,20 @@ BurgerToMe = {
   validateOrder: function (e) {
     // check login
     if (!BurgerToMe.currentUser) {
-      e.preventDefault();
+      if (e) { e.preventDefault(); }
       alert('Oops! Please log in to your TaskRabbit account first using the link in the upper left.');
       return false;
     }
 
     // check presence of location and order items
     if ($('#order_description').val().length == 0) {
-      e.preventDefault();
+      if (e) { e.preventDefault(); }
       alert('Oops! Please add some menu items to your order first.');
       return false;
     }
 
     if ($('#address_full').val().length == 0) {
-      e.preventDefault();
+      if (e) { e.preventDefault(); }
       alert('Oops! Please add your address to the order first.');
       return false;
     }
@@ -95,7 +95,7 @@ BurgerToMe = {
     var state = $('#address_state').val(),
         city  = $('#address_city').val();
     if (!(state === 'CA' && (city === 'SF' || city === 'San Francisco'))) {
-      e.preventDefault();
+      if (e) { e.preventDefault(); }
       alert("Oops! We're sorry, but deliveries are only available in the city of San Francisco right now.");
       return false;
     }
@@ -103,10 +103,12 @@ BurgerToMe = {
     // validate that the current time is within delivery hours (TR requirement for "Deliver Now" orders)
     // currently 9am to 7pm monday through friday
     if (!this.validateDeliveryHours()) {
-      e.preventDefault();
+      if (e) { e.preventDefault(); }
       alert("Oops! We're sorry, but deliveries are only available Monday through Friday 9am-7pm right now.");
       return false;
     }
+    
+    return true;
   },
 
   // Checks whether the current time (or optionally, a custom time passed as an argument) is
