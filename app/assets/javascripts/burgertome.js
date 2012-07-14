@@ -67,7 +67,7 @@ BurgerToMe = {
     });
 
     // order validation
-    $('form.new.order').submit(this.validateOrder);
+    $('form.new_order').submit(this.validateOrder);
   },
 
   validateOrder: function (e) {
