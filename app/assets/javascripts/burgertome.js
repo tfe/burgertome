@@ -102,7 +102,7 @@ BurgerToMe = {
 
     // validate that the current time is within delivery hours (TR requirement for "Deliver Now" orders)
     // currently 9am to 7pm monday through friday
-    if (!this.validateDeliveryHours()) {
+    if (!BurgerToMe.validateDeliveryHours()) {
       if (e) { e.preventDefault(); }
       alert("Oops! We're sorry, but deliveries are only available Monday through Friday 9am-7pm right now.");
       return false;
