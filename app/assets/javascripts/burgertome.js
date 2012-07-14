@@ -85,7 +85,7 @@ BurgerToMe = {
       return false;
     }
 
-    if ($('#address_full').val().length == 0) {
+    if ($('#address').val().length == 0 || $('#address_full').val().length == 0) {
       if (e) { e.preventDefault(); }
       alert('Oops! Please add your address to the order first.');
       return false;
@@ -168,8 +168,9 @@ BurgerToMe = {
     var map_image_initial_params = "&center=" + center.toUrlValue() + "&zoom=" + zoom;
     var map_image = $('<img src="' + map_image_base_url + map_image_initial_params + '" class="location_map">');
   
-    // show and hide fields, add map image
+    // add map image, stash initial source URL for later
     el.append(map_image);
+    map_image.data('startingSrc', map_image.attr('src'));
 
     var autocomplete = new google.maps.places.Autocomplete(input, { bounds: bounds, types: ['geocode'] });
 
@@ -181,7 +182,7 @@ BurgerToMe = {
           map_image_location_params += "&center=" + center;
           map_image_location_params += "&zoom=" + 15;
 
-      // show map image
+      // update map image
       map_image.attr('src', map_image_base_url + map_image_location_params);
 
       // update legacy address fields
@@ -210,8 +211,29 @@ BurgerToMe = {
           address = place.formatted_address;
       el.find('#address_lat').val(lat);
       el.find('#address_lng').val(lng);
-      el.find('#address_full').val(address)
+      el.find('#address_full').val(address);
     });
+    
+    
+    // add a listener for the blur event to handle clearing of fields if address was deleted, and other housekeeping
+    $(input).bind('blur', function () { 
+      // if address field is empty (user deleted input), blank out the fields we filled
+      if ($(this).val().length == 0) {
+        // clear hidden fields to allow them to be re-filled from place_changed handler
+        field_name_map.each(function (gmaps_name, form_name) {
+          var selector = ['#', form_name].join('');
+          var input = el.find(selector);
+          input.val('');
+        });
+        el.find('#address_lat').val('');
+        el.find('#address_lng').val('');
+        el.find('#address_full').val('');
+
+        // also reset map image
+        map_image.attr('src', map_image.data('startingSrc'));
+      }
+    });
+
   },
   
   
